@@ -36,10 +36,17 @@
         "squizlabs/php_codesniffer": "1.4.3"
     },
 
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/triplepoint/philip"
+        }
+    ],
+
     "autoload": {
         "psr-0": {
-        	"OftBot":        "source/",
-        	"OftBot\\Tests": "tests/"
+        	"OftBot":      "source/",
+        	"OftBotTests": "tests/"
     	}
     }
 }

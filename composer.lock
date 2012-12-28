@@ -1,39 +1,38 @@
 {
-    "hash": "6c0e0b608499b94e8933ae0404a2b3cc",
+    "hash": "dd422a3a5cadf22f14f9b57068c0ee52",
     "packages": [
         {
             "name": "epochblue/philip",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/epochblue/philip.git",
-                "reference": "089ff2ada49815f15799f12a39d6b856db3cadd8"
+                "url": "https://github.com/triplepoint/philip",
+                "reference": "40cfc70a94ed646152f39df8805ae671135eac58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/epochblue/philip/archive/089ff2ada49815f15799f12a39d6b856db3cadd8.zip",
-                "reference": "089ff2ada49815f15799f12a39d6b856db3cadd8",
+                "url": "https://api.github.com/repos/triplepoint/philip/zipball/40cfc70a94ed646152f39df8805ae671135eac58",
+                "reference": "40cfc70a94ed646152f39df8805ae671135eac58",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "1.2.*",
                 "php": ">=5.3.3",
+                "monolog/monolog": "1.2.*",
                 "symfony/event-dispatcher": "2.1.*"
             },
-            "time": "2012-10-28 18:54:26",
+            "time": "2012-12-28 07:07:50",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.1.x-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Philip": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -47,10 +46,13 @@
             "description": "A Slim-inspired IRC bot framework",
             "homepage": "https://github.com/epochblue/philip",
             "keywords": [
-                "DSL",
+                "irc",
                 "bot",
-                "irc"
-            ]
+                "dsl"
+            ],
+            "support": {
+                "source": "https://github.com/triplepoint/philip/tree/master"
+            }
         },
         {
             "name": "monolog/monolog",
