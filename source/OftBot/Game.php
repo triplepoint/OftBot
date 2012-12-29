@@ -79,7 +79,7 @@ class Game
         $index = $this->getPlayerIndexByName($player_name);
 
         // TODO For now, disallow leaving if its your turn.  Eventually, this should be refined.
-        if ($this->players[$index] == $this->getCurrentPlayer()) {
+        if ($this->hasStarted() && $this->players[$index] == $this->getCurrentPlayer()) {
             throw new \Exception("The player who's current turn it is may not leave.");
         }
 

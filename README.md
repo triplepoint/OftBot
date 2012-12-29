@@ -1,3 +1,6 @@
+$ OftBot
+[![Build Status](https://travis-ci.org/triplepoint/OftBot.png?branch=master)](https://travis-ci.org/triplepoint/OftBot)
+
 # Introduction
 OftBot listens on an IRC channel and will manage a quick game of 1-4-24, based on trigger commands.
 
