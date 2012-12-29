@@ -1,4 +1,4 @@
-$ OftBot
+# OftBot
 [![Build Status](https://travis-ci.org/triplepoint/OftBot.png?branch=master)](https://travis-ci.org/triplepoint/OftBot)
 
 # Introduction
