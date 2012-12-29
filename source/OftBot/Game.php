@@ -15,38 +15,42 @@ class Game
 
     /**
      * The player that created this game
+     *
      * @var Player
      */
     protected $game_owner;
 
     /**
      * The player who's turn it is
+     *
      * @var Player
      */
     protected $current_player;
 
     /**
      * Has the game moved past the join stage?
+     *
      * @var boolean
      */
     protected $game_has_started = false;
+
+    /**
+     * How many times has this game tied?  Zero means this is the first game.
+     *
+     * @var integer
+     */
+    protected $tie_counter = 0;
 
     public function __construct($creating_player_name)
     {
         $this->addPlayer($creating_player_name);
 
-        $index = $this->getPlayerIndexByName($creating_player_name);
-        $this->game_owner = $this->players[$index];
+        $this->game_owner = $this->players[0];
     }
 
     public function getPlayers()
     {
         return $this->players;
-    }
-
-    public function shufflePlayers()
-    {
-        shuffle($this->players);
     }
 
     public function addPlayer($player_name)
@@ -74,12 +78,22 @@ class Game
 
         $index = $this->getPlayerIndexByName($player_name);
 
+        // TODO For now, disallow leaving if its your turn.  Eventually, this should be refined.
+        if ($this->players[$index] == $this->getCurrentPlayer()) {
+            throw new \Exception("The player who's current turn it is may not leave.");
+        }
+
         unset($this->players[$index]);
     }
 
     public function playerExists($player_name)
     {
         return ($this->getPlayerIndexByName($player_name) !== false);
+    }
+
+    public function shufflePlayers()
+    {
+        shuffle($this->players);
     }
 
     protected function getPlayerIndexByName($player_name)
@@ -101,12 +115,37 @@ class Game
         return $this->current_player;
     }
 
+    public function setCurrentPlayerToNextPlayer()
+    {
+        if (!$this->hasStarted()) {
+            throw new \Exception("The game hasn't started yet.");
+        }
+
+        if (!$this->current_player) {
+            $this->current_player = $this->players[0];
+
+        } else if ($this->currentPlayerIsLastPlayer()) {
+            throw new \Exception('The current player is the final player, cannot change to next player.');
+
+        } else {
+            $current_index = array_search($this->current_player, $this->players);
+            $this->current_player = $this->players[$current_index+1];
+        }
+    }
+
+    public function currentPlayerIsLastPlayer()
+    {
+        if (!$this->hasStarted()) {
+            throw new \Exception("The game hasn't started yet.");
+        }
+
+        return ($this->current_player == $this->players[count($this->players)-1]);
+    }
+
     public function getGameOwner()
     {
         return $this->game_owner;
     }
-
-
 
     public function start()
     {
@@ -118,13 +157,38 @@ class Game
 
         $this->shufflePlayers();
 
-        $this->current_player = $this->players[0];
+        $this->setCurrentPlayerToNextPlayer();
     }
 
-    public function cancelGame()
+    public function continueTie()
     {
-        if ($this->hasStarted()) {
-            throw new \Exception("The game's already started.  Play it through or kick all the players.");
+        if (!$this->hasStarted()) {
+            throw new \Exception("The game hasn't started yet.");
+        }
+
+        if (!$this->isTied()) {
+            throw new \Exception("You can't continue a tie if the game isn't tied.");
+        }
+
+        $this->clearPlayersForNewGame();
+
+        $this->tie_counter = $this->tie_counter + 1;
+
+        $this->current_player = null;
+        $this->setCurrentPlayerToNextPlayer();
+    }
+
+    public function getTieCounter()
+    {
+        return $this->tie_counter;
+    }
+
+    protected function clearPlayersForNewGame()
+    {
+        foreach ($this->players as $player) {
+            $player->clearScore();
+            $player->clearKept();
+            $player->clearRoll();
         }
     }
 
@@ -139,39 +203,98 @@ class Game
             throw new \Exception("The game hasn't started yet.");
         }
 
-        if ($this->getCurrentPlayer()->getRoll()) {
-            throw new \Exception("You've already rolled, select your die to keep.");
+        if ($this->getCurrentPlayer()->turnIsComplete()) {
+            throw new \Exception("You've already finished your turn.");
         }
 
-        // Do the roll
-        $kept = $this->getCurrentPlayer()->getKept() ?: array();
-        $die_count = 6 - count($kept);
+        if ($this->getCurrentPlayer()->alreadyRolled()) {
+            throw new \Exception("You've already rolled, select your dice to keep.");
+        }
+
+        $kept = $this->getCurrentPlayer()->getKept();
+        $dice_count = 6 - count($kept);
         $roll = array();
-        for ($i=0; $i<$die_count; $i++) {
+        for ($i=0; $i<$dice_count; $i++) {
             $roll[] = mt_rand(1, 6);
         }
         $this->getCurrentPlayer()->setRoll($roll);
     }
 
-    public function keep($kept)
+    public function keep(array $kept)
     {
         if (!$this->hasStarted()) {
             throw new \Exception("The game hasn't started yet.");
         }
 
-        if (!$this->getCurrentPlayer()->getRoll()) {
+        if ($this->getCurrentPlayer()->turnIsComplete()) {
+            throw new \Exception("You've already finished your turn.");
+        }
+
+        if (!$this->getCurrentPlayer()->alreadyRolled()) {
             throw new \Exception("You haven't rolled yet, roll first.");
         }
 
-        // Verify that the kept are actually in the user's roll
+        if (count($kept) == 0 ) {
+            throw new \Exception("You must keep at least one die from your roll.");
+        }
 
-        // Add the kept to the user's kept set
+        $roll = $this->getCurrentPlayer()->getRoll();
+        $diff = $this->getKeepersNotInRoll($kept, $roll);
+        if ( $diff !== array() ) {
+            throw new \Exception("The kept choices ".join(', ', $diff)." are invalid.");
+        }
 
-        // Clear the user's roll
+        $this->getCurrentPlayer()->addKept($kept);
 
-        // If the user has 6 kept die, they're done.  Mark them complete,
-        //  Tally their score, and set the next current player.
+        $this->getCurrentPlayer()->clearRoll();
 
+        if (count($this->getCurrentPlayer()->getKept()) == 6) {
+            $score = $this->getCurrentPlayer()->calculateScoreFromKept();
+            $this->getCurrentPlayer()->setScore($score);
+        }
     }
 
+    public function getPlayersRankedByScore()
+    {
+        if (!$this->hasStarted()) {
+            throw new \Exception("The game hasn't started yet.");
+        }
+
+        foreach ($this->players as $player) {
+            if (!$player->turnIsComplete()) {
+                throw new \Exception("You can't calculate a winner until all the players finish their turns.");
+            }
+        }
+
+        $sorted_players = $this->players;
+        usort(
+            $sorted_players,
+            function ($a, $b) {
+                return strnatcmp($a->getScore(), $b->getScore());
+            }
+        );
+
+        return $sorted_players;
+    }
+
+    public function isTied()
+    {
+        $players = $this->getPlayersRankedByScore();
+        return (count($players) > 1 && ($players[0]->getScore() == $players[1]->getScore()));
+    }
+
+    protected function getKeepersNotInRoll(array $kept, array $roll)
+    {
+        $diff = array();
+        foreach ( $kept as $keeper ) {
+            if (!in_array($keeper, $roll)) {
+                $diff[] = $keeper;
+            } else {
+                $index = array_search($keeper, $roll);
+                unset($roll[$index]);
+            }
+        }
+
+        return $diff;
+    }
 }

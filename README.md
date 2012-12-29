@@ -31,18 +31,18 @@ cd /wherever/you/cloned/this/repository/OftBot/configuration
 cp configuration-example.php configuration.php
 ```
 
-TODO - Explain how to edit the configuration file
+The configuration array is more or less self explanatory.
 
 # Use
-## Start OftBot:
+## Start OftBot
 
 ``` bash
 cd /wherever/you/cloned/this/repository/OftBot/cli
 ./oftbot.php
 ```
 
-## Communicating with OftBot
-OftBot listens for public messages that start with `@oftbot`.  Alternately, you can send OftBot a private message.
+## Setting up a New Game
+OftBot listens for public messages that start with `@oftbot`.
 
 So for instance, to call the `help` command, you could say in IRC:
 `@oftbot help`
@@ -57,14 +57,23 @@ OftBot will begin a game and ask for players to join the game.  Players can join
 Once all the players that are going to join have joined, the player that originally suggested the game can start the game with:
 `@oftbot start`
 
-At this point the game is begun and @oftbot will ignore join requests until the game is ended.
+At this point the game is begun and @oftbot will ignore join requests until the game is ended.  Games in progress can be killed by the player that started the game with:
+`@oftbot killgame`
 
-## Playing the game
+Also the player that started the game can can also kick other players from the game (unless it's current their turn)with:
+`@oftbot kick <username>`
+
+Players can leave the game at any time except when it's their turn with:
+`@oftbot leave`
+
+## Playing the Game
 OftBot will randomly decide the play order of the players and will announce in IRC who's turn is next.  The player who's turn it is can roll their die with:
 `@oftbot roll`
 
-OftBot will generated random rolls and announce the results.  The player then says which die he would like to keep.  For instance, if the player rolled and OftBot says that the results are 1, 4, 2, 5, 5, 6, then the user could keep the 1, 4 and 6 with
-`@oftbot keep 1 4 6`
+OftBot will generated random rolls and announce the results.  The player then says which die he would like to keep.  For instance, if the player rolled and OftBot says that the results are 1, 4, 2, 5, 5, 6, then the player could keep the 1, 4 and 6 with
+`@oftbot keep 1 4 6` or
+`@oftbot keep 146` or
+`@oftbot keep 1, 4,6`
 
 OftBot will then roll the remaining die automatically.  This will continue until all the die are kept, at which point OftBot will anounce the player's score and notify the next player that their turn is beginning.
 
@@ -72,6 +81,5 @@ Once all the players have taken their turn, OftBot will announce the results.  A
 
 ## Miscellaneous commands
 There're a few more commands OftBot is listening for:
-- help   -
+- help   - Prints a short message listing the commands available and a link to further documentation
 - status - Will explain what the current state of the game is, if any.
-- stats  - Will return some statistics gathered by OftBot from the games it manages.
