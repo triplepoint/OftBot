@@ -79,7 +79,7 @@ OftBot will then roll the remaining die automatically.  This will continue until
 
 Once all the players have taken their turn, OftBot will announce the results.  At this point, unless the game is a tie and starts again, the game is over and a new game can be suggested.
 
-## Miscellaneous commands
+## Miscellaneous Commands
 There're a few more commands OftBot is listening for:
 - help   - Prints a short message listing the commands available and a link to further documentation
 - status - Will explain what the current state of the game is, if any.
