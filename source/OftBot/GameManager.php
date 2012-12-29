@@ -187,7 +187,7 @@ class GameManager
                 throw new \Exception('It\'s not your turn to play - it\'s @' . $this->current_game->getCurrentPlayer()->getName() . '\'s turn.');
             }
 
-            $kept = preg_replace( '/[^0-9]/', '', $kept);
+            $kept = preg_replace('/[^0-9]/', '', $kept);
             $kept = str_split($kept, 1);
 
             $this->doKeep($kept);

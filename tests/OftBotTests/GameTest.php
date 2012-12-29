@@ -380,5 +380,4 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotSame(null, $player->getScore());
     }
-
 }

@@ -286,7 +286,7 @@ class Game
     protected function getKeepersNotInRoll(array $kept, array $roll)
     {
         $diff = array();
-        foreach ( $kept as $keeper ) {
+        foreach ($kept as $keeper) {
             if (!in_array($keeper, $roll)) {
                 $diff[] = $keeper;
             } else {
