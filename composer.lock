@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/triplepoint/philip",
-                "reference": "40cfc70a94ed646152f39df8805ae671135eac58"
+                "reference": "1467045ba7af3e250f462174fc518a30c56fd6d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/triplepoint/philip/zipball/40cfc70a94ed646152f39df8805ae671135eac58",
-                "reference": "40cfc70a94ed646152f39df8805ae671135eac58",
+                "url": "https://api.github.com/repos/triplepoint/philip/zipball/1467045ba7af3e250f462174fc518a30c56fd6d3",
+                "reference": "1467045ba7af3e250f462174fc518a30c56fd6d3",
                 "shasum": ""
             },
             "require": {
@@ -20,7 +20,7 @@
                 "monolog/monolog": "1.2.*",
                 "symfony/event-dispatcher": "2.1.*"
             },
-            "time": "2012-12-28 07:07:50",
+            "time": "2012-12-31 23:28:34",
             "type": "library",
             "extra": {
                 "branch-alias": {

@@ -10,8 +10,7 @@ return array(
     'password'   => 'some_password',        // This one is optional and can be removed to skip the 'IDENTIFY' process after logging in
 
     // Channel configuration
-    'channels'   => '#example-channel',
-    'channel_passwords' => 'example-password',  // This one is also optional and can be skipped if the channel isn't private
+    'channels'   => '#example-channel',     // For password protected channels, this could be an array where the key is the channel name, and the value is the password
 
     // You can safely ignore this
     'admins'     => array(),
