@@ -270,7 +270,7 @@ class Game
         usort(
             $sorted_players,
             function ($a, $b) {
-                return strnatcmp($a->getScore(), $b->getScore());
+                return -1 * strnatcasecmp($a->getScore(), $b->getScore());
             }
         );
 
