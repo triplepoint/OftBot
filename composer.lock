@@ -1,5 +1,5 @@
 {
-    "hash": "dd422a3a5cadf22f14f9b57068c0ee52",
+    "hash": "9fa0ddf53dde5fbf2c6e4bed6e74280e",
     "packages": [
         {
             "name": "epochblue/philip",
@@ -27,7 +27,6 @@
                     "dev-master": "1.1.x-dev"
                 }
             },
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Philip": "src/"
@@ -86,7 +85,6 @@
                     "dev-master": "1.3.x-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Monolog": "src/"
@@ -138,7 +136,6 @@
             },
             "time": "2012-12-06 10:00:55",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\EventDispatcher": ""
@@ -189,7 +186,6 @@
             },
             "time": "2012-12-02 14:54:55",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHP/"
@@ -236,7 +232,6 @@
             },
             "time": "2012-10-11 04:44:38",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "File/"
@@ -282,7 +277,6 @@
             },
             "time": "2012-10-31 11:15:28",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "Text/"
@@ -327,7 +321,6 @@
             },
             "time": "2012-10-11 04:45:58",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHP/"
@@ -373,7 +366,6 @@
             },
             "time": "2012-10-11 04:47:14",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHP/"
@@ -401,16 +393,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.10",
+            "version": "3.7.12",
             "source": {
                 "type": "git",
                 "url": "git://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3.7.10"
+                "reference": "3.7.12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sebastianbergmann/phpunit/archive/3.7.10.zip",
-                "reference": "3.7.10",
+                "url": "https://github.com/sebastianbergmann/phpunit/archive/3.7.12.zip",
+                "reference": "3.7.12",
                 "shasum": ""
             },
             "require": {
@@ -420,7 +412,7 @@
                 "phpunit/php-code-coverage": ">=1.2.1",
                 "phpunit/php-timer": ">=1.0.2",
                 "phpunit/phpunit-mock-objects": ">=1.2.0,<1.3.0",
-                "symfony/yaml": ">=2.1.0",
+                "symfony/yaml": ">=2.1.0,<2.2.0",
                 "ext-dom": "*",
                 "ext-pcre": "*",
                 "ext-reflection": "*",
@@ -432,7 +424,7 @@
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*"
             },
-            "time": "2012-12-02 14:56:55",
+            "time": "2013-01-09 22:41:02",
             "bin": [
                 "composer/bin/phpunit"
             ],
@@ -442,7 +434,6 @@
                     "dev-master": "3.7.x-dev"
                 }
             },
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHPUnit/"
@@ -494,7 +485,6 @@
             },
             "time": "2012-11-05 10:39:13",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHPUnit/"
@@ -543,7 +533,6 @@
                 "scripts/phpcs"
             ],
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "."
@@ -586,7 +575,6 @@
             },
             "time": "2012-12-06 10:00:55",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\Yaml": ""

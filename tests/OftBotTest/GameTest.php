@@ -1,6 +1,6 @@
 <?php
 
-namespace OftBotTests;
+namespace OftBotTest;
 
 use OftBot\Game;
 use OftBot\Player;

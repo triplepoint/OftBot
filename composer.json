@@ -32,7 +32,7 @@
     },
 
     "require-dev": {
-        "phpunit/phpunit":           "3.7.10",
+        "phpunit/phpunit":           "3.7.12",
         "squizlabs/php_codesniffer": "1.4.3"
     },
 
@@ -45,8 +45,7 @@
 
     "autoload": {
         "psr-0": {
-        	"OftBot":      "source/",
-        	"OftBotTests": "tests/"
+        	"OftBot": "source/"
     	}
     }
 }

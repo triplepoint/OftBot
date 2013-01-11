@@ -9,7 +9,7 @@ before_script:
     - composer install --verbose --dev --prefer-dist -o
 
 script:
-    - ./vendor/bin/phpunit --configuration=./tests
+    - ./vendor/bin/phpunit -c ./tests
     - ./vendor/bin/phpcs --encoding=utf-8 --extensions=php --standard=./tests/phpcs.xml -nsp ./
 
 notifications:
