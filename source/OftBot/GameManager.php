@@ -207,7 +207,7 @@ class GameManager
 
         $this->event->addResponse(Response::notice($channel, '@' . $this->current_game->getCurrentPlayer()->getName() . ' rolled: ' . join(', ', $roll) . '.'));
 
-        if ( count($roll) == 1 ) {
+        if (count($roll) == 1) {
             $this->event->addResponse(Response::notice($channel, 'There\'s only one die; keeping it.'));
             $this->doKeep(array($roll[0]));
 

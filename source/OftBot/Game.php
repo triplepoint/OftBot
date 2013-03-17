@@ -234,13 +234,13 @@ class Game
             throw new \Exception("You haven't rolled yet, roll first.");
         }
 
-        if (count($kept) == 0 ) {
+        if (count($kept) == 0) {
             throw new \Exception("You must keep at least one die from your roll.");
         }
 
         $roll = $this->getCurrentPlayer()->getRoll();
         $diff = $this->getKeepersNotInRoll($kept, $roll);
-        if ( $diff !== array() ) {
+        if ($diff !== array()) {
             throw new \Exception("The kept choices ".join(', ', $diff)." are invalid.");
         }
 
