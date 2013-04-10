@@ -41,7 +41,7 @@ The configuration array is more or less self explanatory.
 ### Start OftBot
 
 ``` bash
-cd /wherever/you/cloned/this/repository/OftBot/cli
+cd /wherever/you/cloned/this/repository/OftBot/bin
 ./oftbot.php
 ```
 
