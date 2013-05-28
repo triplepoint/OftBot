@@ -11,7 +11,7 @@ matrix:
 
 before_script:
     - composer self-update
-    - composer install --verbose --dev --prefer-dist -o
+    - composer install --verbose --dev --prefer-source --no-interaction -o
 
 script:
     - ./vendor/bin/phpunit -c ./tests
