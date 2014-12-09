@@ -163,7 +163,7 @@ class GameManager
                 throw new \Exception('There\'s no game in progress.');
             }
 
-            if (!$this->current_game->getCurrentPlayer()->getName() == $user) {
+            if ($this->current_game->getCurrentPlayer()->getName() != $user) {
                 throw new \Exception('It\'s not your turn to play - it\'s @' . $this->current_game->getCurrentPlayer()->getName() . '\'s turn.');
             }
 
@@ -183,7 +183,7 @@ class GameManager
                 throw new \Exception('There\'s no game in progress.');
             }
 
-            if (!$this->current_game->getCurrentPlayer()->getName() == $user) {
+            if ($this->current_game->getCurrentPlayer()->getName() != $user) {
                 throw new \Exception('It\'s not your turn to play - it\'s @' . $this->current_game->getCurrentPlayer()->getName() . '\'s turn.');
             }
 
