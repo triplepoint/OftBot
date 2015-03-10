@@ -86,6 +86,3 @@ Once all the players have taken their turn, OftBot will announce the results.  A
 There're a few more commands OftBot is listening for:
 - help   - Prints a short message listing the commands available and a link to further documentation
 - status - Will explain what the current state of the game is, if any.
-
-## API Documentation
-Automated API documentation is available at [GitApiDoc](http://gitapidoc.com/api/triplepoint/OftBot/).
