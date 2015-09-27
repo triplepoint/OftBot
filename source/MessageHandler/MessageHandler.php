@@ -2,8 +2,8 @@
 
 namespace OftBot\MessageHandler;
 
-use \Philip\Philip;
-use \Philip\IRC\Response;
+use Philip\Philip;
+use Philip\IRC\Response;
 
 class MessageHandler extends Philip
 {

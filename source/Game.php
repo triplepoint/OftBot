@@ -2,7 +2,7 @@
 
 namespace OftBot;
 
-use \OftBot\Player;
+use OftBot\Player;
 
 class Game
 {
@@ -11,41 +11,41 @@ class Game
      *
      * @var Player[]
      */
-    protected $players = array();
+    protected $players = [];
 
     /**
      * The player that created this game
      *
      * @var Player
      */
-    protected $game_owner;
+    protected $gameOwner;
 
     /**
      * The player who's turn it is
      *
      * @var Player
      */
-    protected $current_player;
+    protected $currentPlayer;
 
     /**
      * Has the game moved past the join stage?
      *
      * @var boolean
      */
-    protected $game_has_started = false;
+    protected $gameHasStarted = false;
 
     /**
      * How many times has this game tied?  Zero means this is the first game.
      *
      * @var integer
      */
-    protected $tie_counter = 0;
+    protected $tieCounter = 0;
 
-    public function __construct($creating_player_name)
+    public function __construct($creatingPlayerName)
     {
-        $this->addPlayer($creating_player_name);
+        $this->addPlayer($creatingPlayerName);
 
-        $this->game_owner = $this->players[0];
+        $this->gameOwner = $this->players[0];
     }
 
     public function getPlayers()
@@ -53,9 +53,9 @@ class Game
         return $this->players;
     }
 
-    public function addPlayer($player_name)
+    public function addPlayer($playerName)
     {
-        if ($this->playerExists($player_name)) {
+        if ($this->playerExists($playerName)) {
             throw new \Exception("You've already joined this game.");
         }
 
@@ -63,32 +63,32 @@ class Game
             throw new \Exception("You can't join the game, it's already started.  Wait for the next one.");
         }
 
-        $this->players[] = new Player($player_name);
+        $this->players[] = new Player($playerName);
     }
 
-    public function removePlayer($player_name)
+    public function removePlayer($playerName)
     {
-        if (!$this->playerExists($player_name)) {
+        if (!$this->playerExists($playerName)) {
             throw new \Exception("That player isn't in the game.");
         }
 
-        if ($player_name == $this->getGameOwner()->getName()) {
+        if ($playerName === $this->getGameOwner()->getName()) {
             throw new \Exception("The player that started the game can't leave.");
         }
 
-        $index = $this->getPlayerIndexByName($player_name);
+        $index = $this->getPlayerIndexByName($playerName);
 
         // TODO For now, disallow leaving if its your turn.  Eventually, this should be refined.
-        if ($this->hasStarted() && $this->players[$index] == $this->getCurrentPlayer()) {
+        if ($this->hasStarted() && $this->players[$index] === $this->getCurrentPlayer()) {
             throw new \Exception("The player who's current turn it is may not leave.");
         }
 
         unset($this->players[$index]);
     }
 
-    public function playerExists($player_name)
+    public function playerExists($playerName)
     {
-        return ($this->getPlayerIndexByName($player_name) !== false);
+        return ($this->getPlayerIndexByName($playerName) !== false);
     }
 
     public function shufflePlayers()
@@ -96,10 +96,10 @@ class Game
         shuffle($this->players);
     }
 
-    protected function getPlayerIndexByName($player_name)
+    protected function getPlayerIndexByName($playerName)
     {
         foreach ($this->players as $index => $player) {
-            if ($player->getName() == $player_name) {
+            if ($player->getName() === $playerName) {
                 return $index;
             }
         }
@@ -112,7 +112,7 @@ class Game
             throw new \Exception("The game hasn't started yet.");
         }
 
-        return $this->current_player;
+        return $this->currentPlayer;
     }
 
     public function setCurrentPlayerToNextPlayer()
@@ -121,15 +121,15 @@ class Game
             throw new \Exception("The game hasn't started yet.");
         }
 
-        if (!$this->current_player) {
-            $this->current_player = $this->players[0];
+        if (!$this->currentPlayer) {
+            $this->currentPlayer = $this->players[0];
 
-        } else if ($this->currentPlayerIsLastPlayer()) {
+        } elseif ($this->currentPlayerIsLastPlayer()) {
             throw new \Exception('The current player is the final player, cannot change to next player.');
 
         } else {
-            $current_index = array_search($this->current_player, $this->players);
-            $this->current_player = $this->players[$current_index+1];
+            $current_index = array_search($this->currentPlayer, $this->players);
+            $this->currentPlayer = $this->players[$current_index+1];
         }
     }
 
@@ -139,12 +139,12 @@ class Game
             throw new \Exception("The game hasn't started yet.");
         }
 
-        return ($this->current_player == $this->players[count($this->players)-1]);
+        return ($this->currentPlayer === $this->players[count($this->players)-1]);
     }
 
     public function getGameOwner()
     {
-        return $this->game_owner;
+        return $this->gameOwner;
     }
 
     public function start()
@@ -153,7 +153,7 @@ class Game
             throw new \Exception("The game has already started.");
         }
 
-        $this->game_has_started = true;
+        $this->gameHasStarted = true;
 
         $this->shufflePlayers();
 
@@ -172,15 +172,15 @@ class Game
 
         $this->clearPlayersForNewGame();
 
-        $this->tie_counter = $this->tie_counter + 1;
+        $this->tieCounter = $this->tieCounter + 1;
 
-        $this->current_player = null;
+        $this->currentPlayer = null;
         $this->setCurrentPlayerToNextPlayer();
     }
 
     public function getTieCounter()
     {
-        return $this->tie_counter;
+        return $this->tieCounter;
     }
 
     protected function clearPlayersForNewGame()
@@ -194,7 +194,7 @@ class Game
 
     public function hasStarted()
     {
-        return $this->game_has_started;
+        return $this->gameHasStarted;
     }
 
     public function roll()
@@ -213,7 +213,7 @@ class Game
 
         $kept = $this->getCurrentPlayer()->getKept();
         $dice_count = 6 - count($kept);
-        $roll = array();
+        $roll = [];
         for ($i=0; $i<$dice_count; $i++) {
             $roll[] = mt_rand(1, 6);
         }
@@ -234,13 +234,13 @@ class Game
             throw new \Exception("You haven't rolled yet, roll first.");
         }
 
-        if (count($kept) == 0) {
+        if (count($kept) === 0) {
             throw new \Exception("You must keep at least one die from your roll.");
         }
 
         $roll = $this->getCurrentPlayer()->getRoll();
         $diff = $this->getKeepersNotInRoll($kept, $roll);
-        if ($diff !== array()) {
+        if ($diff !== []) {
             throw new \Exception("The kept choices ".join(', ', $diff)." are invalid.");
         }
 
@@ -248,7 +248,7 @@ class Game
 
         $this->getCurrentPlayer()->clearRoll();
 
-        if (count($this->getCurrentPlayer()->getKept()) == 6) {
+        if (count($this->getCurrentPlayer()->getKept()) === 6) {
             $score = $this->getCurrentPlayer()->calculateScoreFromKept();
             $this->getCurrentPlayer()->setScore($score);
         }
@@ -266,26 +266,26 @@ class Game
             }
         }
 
-        $sorted_players = $this->players;
+        $sortedPlayers = $this->players;
         usort(
-            $sorted_players,
+            $sortedPlayers,
             function ($a, $b) {
                 return -1 * strnatcasecmp($a->getScore(), $b->getScore());
             }
         );
 
-        return $sorted_players;
+        return $sortedPlayers;
     }
 
     public function isTied()
     {
         $players = $this->getPlayersRankedByScore();
-        return (count($players) > 1 && ($players[0]->getScore() == $players[1]->getScore()));
+        return (count($players) > 1 && ($players[0]->getScore() === $players[1]->getScore()));
     }
 
     protected function getKeepersNotInRoll(array $kept, array $roll)
     {
-        $diff = array();
+        $diff = [];
         foreach ($kept as $keeper) {
             if (!in_array($keeper, $roll)) {
                 $diff[] = $keeper;

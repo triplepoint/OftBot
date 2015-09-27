@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     // IRC Connection configuration
     'hostname'   => 'irc.freenode.net',
     'servername' => 'example.com',
@@ -13,7 +13,7 @@ return array(
     'channels'   => '#example-channel',     // For password protected channels, this could be an array where the key is the channel name, and the value is the password
 
     // You can safely ignore this
-    'admins'     => array(),
+    'admins'     => [],
     'debug'      => false,
     'log'        => __DIR__ . '/../logs/bot.log',
-);
+];

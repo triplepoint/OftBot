@@ -15,7 +15,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $test_player = new Player('creating_player_name');
 
-        $this->assertEquals(array($test_player), $players);
+        $this->assertEquals([$test_player], $players);
 
         $this->assertEquals($test_player, $game->getGameOwner());
     }
@@ -27,11 +27,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game->addPlayer('new_player_one');
         $game->addPlayer('new_player_two');
 
-        $test_players = array(
+        $test_players = [
             new Player('creating_player_name'),
             new Player('new_player_one'),
             new Player('new_player_two')
-        );
+        ];
 
         $players = $game->getPlayers();
 
@@ -97,11 +97,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->shufflePlayers();
 
-        $test_players = array(
+        $test_players = [
             new Player('creating_player_name'),
             new Player('new_player_one'),
             new Player('new_player_two')
-        );
+        ];
 
         $players = $game->getPlayers();
 
@@ -119,10 +119,10 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->RemovePlayer('new_player_two');
 
-        $test_players = array(
+        $test_players = [
             new Player('creating_player_name'),
             new Player('new_player_one')
-        );
+        ];
 
         $players = $game->getPlayers();
 
@@ -161,9 +161,9 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->start();
 
-        $current_player = $game->getCurrentPlayer();
+        $currentPlayer = $game->getCurrentPlayer();
 
-        $this->assertContains($current_player->getName(), array('creating_player_name', 'new_player_one', 'new_player_two'));
+        $this->assertContains($currentPlayer->getName(), ['creating_player_name', 'new_player_one', 'new_player_two']);
     }
 
     /**
@@ -194,9 +194,9 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $players = $game->getPlayers();
         $last_player = array_pop($players);  // Because start() randomizes the players, this is the only way to know what the last player is
 
-        $current_player = $game->getCurrentPlayer();
+        $currentPlayer = $game->getCurrentPlayer();
 
-        $this->assertSame($last_player->getName(), $current_player->getName());
+        $this->assertSame($last_player->getName(), $currentPlayer->getName());
     }
 
     public function testCurrentPlayerIsLastPlayer()
@@ -267,7 +267,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game->addPlayer('new_player_one');
         $game->addPlayer('new_player_two');
 
-        $game->keep();
+        $game->keep([]);
     }
 
     /**
@@ -279,7 +279,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->start();
 
-        $game->keep();
+        $game->keep([]);
     }
 
     /**
@@ -294,17 +294,17 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->roll();
 
-        $roll = $game->getCurrentPlayer()->setRoll(array(1,1,2,3,4,5));
+        $roll = $game->getCurrentPlayer()->setRoll([1,1,2,3,4,5]);
 
         $game->keep($kept);
     }
 
     public function invalidKept()
     {
-        return array(
-            array(array(1,1,1)),
-            array(array(6))
-        );
+        return [
+            [[1,1,1]],
+            [[6]]
+        ];
     }
 
     public function testCanKeepValidDice()
@@ -315,9 +315,9 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $game->roll();
 
-        $roll = $game->getCurrentPlayer()->setRoll(array(1,1,2,3,4,5));
+        $roll = $game->getCurrentPlayer()->setRoll([1,1,2,3,4,5]);
 
-        $game->keep(array(1,1,2,3,4,5));
+        $game->keep([1,1,2,3,4,5]);
     }
 
     /**
@@ -338,7 +338,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(6, $roll);
 
-        $game->keep(array($roll[0], $roll[1])); // Keep the first two die rolled
+        $game->keep([$roll[0], $roll[1]]); // Keep the first two die rolled
 
         $kept = $player->getKept();
 
@@ -354,7 +354,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(4, $roll);
 
-        $game->keep(array($roll[0])); // Keep the first die rolled
+        $game->keep([$roll[0]]); // Keep the first die rolled
 
         $kept = $player->getKept();
 
@@ -370,7 +370,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(3, $roll);
 
-        $game->keep(array($roll[0], $roll[1], $roll[2])); // Keep all 3 die rolled
+        $game->keep([$roll[0], $roll[1], $roll[2]]); // Keep all 3 die rolled
 
         $kept = $player->getKept();
 

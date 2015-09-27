@@ -65,13 +65,13 @@ class Player
 
     public function getKept()
     {
-        return $this->kept ?: array();
+        return $this->kept ?: [];
     }
 
     public function addKept(array $kept)
     {
         if (!is_array($this->kept)) {
-            $this->kept = array();
+            $this->kept = [];
         }
         $this->kept = array_merge($this->kept, $kept);
     }
@@ -126,7 +126,7 @@ class Player
     public function calculateScoreFromKept()
     {
         // If the player didn't get both a 1 and a 4, their score is zero
-        if (!is_array($this->kept) || array_search(1, $this->kept)===false || array_search(4, $this->kept)===false) {
+        if (!is_array($this->kept) || array_search(1, $this->kept) === false || array_search(4, $this->kept) === false) {
             $score = self::SCORE_DNQ;
         } else {
             $score = array_sum($this->kept) - 1 - 4;

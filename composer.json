@@ -21,9 +21,9 @@
     ],
 
     "support": {
-    	"email":  "jonathan@jonathan-hanson.org",
-    	"issues": "https://github.com/triplepoint/OftBot/issues",
-    	"source": "https://github.com/triplepoint/OftBot"
+        "email":  "jonathan@jonathan-hanson.org",
+        "issues": "https://github.com/triplepoint/OftBot/issues",
+        "source": "https://github.com/triplepoint/OftBot"
     },
 
     "require": {
@@ -44,8 +44,14 @@
     ],
 
     "autoload": {
-        "psr-0": {
-        	"OftBot": "source/"
-    	}
+        "psr-4": {
+            "OftBot\\": "source/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "OftBotTest\\": "tests/"
+        }
     }
 }
