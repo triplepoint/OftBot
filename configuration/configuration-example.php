@@ -1,7 +1,7 @@
 <?php
 return [
     // IRC Connection configuration
-    'hostname'   => 'irc.freenode.net',
+    'hostname'   => 'chat.freenode.net',
     'servername' => 'example.com',
     'port'       => 6667,
     'username'   => 'examplebot',

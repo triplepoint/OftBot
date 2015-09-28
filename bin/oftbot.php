@@ -5,7 +5,12 @@ ini_set('display_startup_errors', 'On');
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$config = require __DIR__ . '/../configuration/configuration.php';
+$options = getopt('c');
+if (array_key_exist('c'), $options) {
+    $config = $options['c'];
+} else {
+    $config = require __DIR__ . '/../configuration/configuration.php';
+}
 
 $message_handler = new OftBot\MessageHandler\MessageHandler($config);
 
