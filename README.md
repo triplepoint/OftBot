@@ -23,7 +23,7 @@ Install the project's Composer dependencies:
 ``` bash
 cd /wherever/you/cloned/this/repository/OftBot
 php -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
-./composer.phar install --verbose --dev --prefer-dist -o
+./composer.phar install --verbose --dev --prefer-dist --optimize-autoloader
 ```
 
 ## Configuration
