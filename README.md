@@ -18,12 +18,13 @@ Traditionally, each player bets a dollar that they will win, and the winner coll
 ## Installing OftBot
 Clone a copy of this repository to some place convenient that would have client access to the IRC channel where the game will be hosted.
 
+Be sure to have [Composer](http://www.getcomposer.org/) installed and available.
+
 Install the project's Composer dependencies:
 
 ``` bash
 cd /wherever/you/cloned/this/repository/OftBot
-php -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
-./composer.phar install --verbose --dev --prefer-dist --optimize-autoloader
+composer.phar install --verbose --no-dev --prefer-dist --optimize-autoloader
 ```
 
 ## Configuration
@@ -86,3 +87,26 @@ Once all the players have taken their turn, OftBot will announce the results.  A
 There're a few more commands OftBot is listening for:
 - help   - Prints a short message listing the commands available and a link to further documentation
 - status - Will explain what the current state of the game is, if any.
+
+## Development
+There's a Vagrantfile attached to set up a basic PHP 7 environment.  Create and SSH into this machine with:
+``` bash
+vagrant up
+vagrant ssh
+cd /project
+```
+
+Install the application's dev dependencies with:
+``` bash
+composer.phar install --verbose --dev --prefer-source
+```
+
+You should then be able to run the unit tests with:
+``` bash
+./vendor/bin/phpunit -c ./tests/phpunit.xml.dist ./tests
+```
+
+And run the Codesniffer lint checks with:
+``` bash
+./vendor/bin/phpcs --encoding=utf-8 --extensions=php --standard=./tests/phpcs.xml -nsp ./
+```
