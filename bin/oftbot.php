@@ -6,7 +6,7 @@ ini_set('display_startup_errors', 'On');
 require __DIR__ . '/../vendor/autoload.php';
 
 $options = getopt('c');
-if (array_key_exist('c'), $options) {
+if (array_key_exists('c', $options)) {
     $config = $options['c'];
 } else {
     $config = require __DIR__ . '/../configuration/configuration.php';
